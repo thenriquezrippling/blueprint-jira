@@ -1,0 +1,42 @@
+{
+  "description": "Semantic blueprint keys to Jira field ids for BLUEPRINT project. Use value labels for selects; mapper resolves to option id.",
+  "jiraKeys": {
+    "title": "summary",
+    "body": "description",
+    "assignee": "assignee",
+    "priority": "priority",
+    "labels": "labels",
+    "dueDate": "duedate",
+    "startDate": "customfield_10015",
+    "storyPoints": "customfield_10016",
+    "team": "customfield_10001",
+    "sprint": "customfield_10020",
+    "flaggedImpediment": "customfield_10021",
+    "cadence": "customfield_26129",
+    "sla": "customfield_26130",
+    "mmdd": "customfield_26131",
+    "manager": "customfield_26132",
+    "specialization": "customfield_26133",
+    "atlasProject": "customfield_27433",
+    "parent": "parent",
+    "issueColor": "customfield_10017"
+  },
+  "issueTypeNameByTrack": {
+    "amendments": "Amendments",
+    "filings": "Filings",
+    "audits": "Audits",
+    "systems": "Systems",
+    "leadership": "Leadership",
+    "story": "Story",
+    "task": "Task",
+    "epic": "Epic",
+    "subtask": "Subtask"
+  },
+  "specializationByTrack": {
+    "amendments": "Amendments",
+    "filings": "Filings & Payments",
+    "audits": "Audits",
+    "systems": "Systems & Product",
+    "leadership": "Leadership"
+  }
+}

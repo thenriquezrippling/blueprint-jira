@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "blueprint-jira"
+version = "0.1.0"
+description = "Map blueprint-friendly issue attributes to Jira BLUEPRINT additional_fields"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+blueprint-issue-payload = "blueprint_jira.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

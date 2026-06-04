@@ -1,0 +1,67 @@
+{
+  "generatedAt": "2026-06-04T00:00:00Z",
+  "site": "https://rippling.atlassian.net",
+  "cloudId": "969226a5-2105-49eb-a9f7-e3852660973e",
+  "project": {
+    "key": "BLUEPRINT",
+    "id": "16781",
+    "name": "Blueprint — Filings & Payments Systems and Product Pillar",
+    "style": "next-gen"
+  },
+  "issueTypes": [
+    {"name": "Epic", "id": "18241", "fieldCount": 32},
+    {"name": "Task", "id": "18240", "fieldCount": 29},
+    {"name": "Subtask", "id": "18242", "fieldCount": 31, "notes": "parent is required"},
+    {"name": "Story", "id": "24284", "fieldCount": 31},
+    {"name": "Amendments", "id": "18570", "fieldCount": 31},
+    {"name": "Filings", "id": "18571", "fieldCount": 31},
+    {"name": "Audits", "id": "18572", "fieldCount": 31},
+    {"name": "Systems", "id": "18573", "fieldCount": 31},
+    {"name": "Leadership", "id": "24285", "fieldCount": 31, "notes": "issuerestriction defaults to Administrator role"}
+  ],
+  "fieldPresence": {
+    "epicOnly": ["customfield_10017"],
+    "taskMissingVersusOthers": ["customfield_10017", "customfield_12893", "customfield_13066"],
+    "description": "Epic includes Issue color (customfield_10017). Task omits Issue color, Design, and Vulnerability. Subtask requires parent."
+  },
+  "fields": [
+    {"key": "summary", "name": "Summary", "required": true, "schema": "string"},
+    {"key": "project", "name": "Project", "required": true, "schema": "project"},
+    {"key": "reporter", "name": "Reporter", "required": true, "schema": "user"},
+    {"key": "issuetype", "name": "Issue Type", "required": false, "schema": "issuetype"},
+    {"key": "description", "name": "Description", "required": false, "schema": "string"},
+    {"key": "assignee", "name": "Assignee", "required": false, "schema": "user"},
+    {"key": "priority", "name": "Priority", "required": false, "schema": "priority", "defaultName": "Medium"},
+    {"key": "parent", "name": "Parent", "required": "conditional", "schema": "issuelink", "requiredFor": ["Subtask"]},
+    {"key": "labels", "name": "Labels", "required": false, "schema": "array:string"},
+    {"key": "duedate", "name": "Due date", "required": false, "schema": "date"},
+    {"key": "customfield_10015", "name": "Start date", "required": false, "schema": "date"},
+    {"key": "customfield_10016", "name": "Story point estimate", "required": false, "schema": "number"},
+    {"key": "customfield_10017", "name": "Issue color", "required": false, "schema": "string", "epicOnly": true},
+    {"key": "customfield_10001", "name": "Team", "required": false, "schema": "team"},
+    {"key": "customfield_10020", "name": "Sprint", "required": false, "schema": "array:json"},
+    {"key": "customfield_10021", "name": "Flagged", "required": false, "schema": "multicheckboxes", "allowedValues": [{"id": "10019", "value": "Impediment"}]},
+    {"key": "customfield_12893", "name": "Design", "required": false, "schema": "design"},
+    {"key": "customfield_13066", "name": "Vulnerability", "required": false, "schema": "any"},
+    {"key": "customfield_13420", "name": "Goals", "required": false, "schema": "goals"},
+    {"key": "customfield_26129", "name": "Cadence", "required": false, "schema": "option", "allowedValues": [
+      {"id": "38774", "value": "Semi-Monthly"}, {"id": "38775", "value": "Monthly"}, {"id": "38776", "value": "Quarterly"},
+      {"id": "38777", "value": "Annual"}, {"id": "38778", "value": "One-Time"}
+    ]},
+    {"key": "customfield_26130", "name": "SLA", "required": false, "schema": "option", "allowedValues": [
+      {"id": "38779", "value": "P0"}, {"id": "38780", "value": "P1"}, {"id": "38781", "value": "P2"}, {"id": "38782", "value": "P3"}
+    ]},
+    {"key": "customfield_26131", "name": "MMDD", "required": false, "schema": "date"},
+    {"key": "customfield_26132", "name": "Manager", "required": false, "schema": "option", "allowedValues": [
+      {"id": "38783", "value": "Josh Wilmot"}, {"id": "38784", "value": "David Ahumada"}, {"id": "38785", "value": "Hasmukh Sharma"},
+      {"id": "38786", "value": "Tony Henriquez"}, {"id": "38787", "value": "Robin Islam"}, {"id": "38788", "value": "Ryan Cannedy"},
+      {"id": "38789", "value": "Arnold Ashish"}
+    ]},
+    {"key": "customfield_26133", "name": "Specialization", "required": false, "schema": "option", "allowedValues": [
+      {"id": "38790", "value": "Amendments"}, {"id": "38791", "value": "Audits"}, {"id": "38792", "value": "Compliance"},
+      {"id": "38793", "value": "Confidential"}, {"id": "38794", "value": "Filings & Payments"}, {"id": "38795", "value": "Leadership"},
+      {"id": "38796", "value": "Re-Files"}, {"id": "38797", "value": "Systems & Product"}, {"id": "38798", "value": "Training & Development"}
+    ]},
+    {"key": "customfield_27433", "name": "Project", "required": false, "schema": "atlas-project"}
+  ]
+}

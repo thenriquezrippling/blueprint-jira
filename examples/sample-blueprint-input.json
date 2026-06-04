@@ -1,0 +1,10 @@
+{
+  "summary": "[Blueprint tool] Sample Systems work item",
+  "description": "Created from blueprint-jira mapper example.",
+  "priority": "Medium",
+  "cadence": "Quarterly",
+  "sla": "P2",
+  "manager": "Tony Henriquez",
+  "specialization": "Systems & Product",
+  "labels": ["blueprint-tooling", "auto-demo"]
+}
