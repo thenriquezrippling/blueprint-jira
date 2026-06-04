@@ -1,0 +1,1680 @@
+=== Tab: TaxOps Universal Blueprint & Jira WF Architecture ===
+
+TaxOps Universal Blueprint & Jira Workflow Architecture (Robin + Kitty Review)
+
+v4.0 · May 2026 · Author: Rana Annabi (Systems Lead)
+
+For review: Robin Islam (Director, Tax Operations) & Kitty (VP, Product Operations)
+
+━━━━━━━━━━━━━━━━━━━
+
+TAB 1 — EXECUTIVE SUMMARY
+
+━━━━━━━━━━━━━━━━━━━
+
+The Challenge
+
+Tax Operations processes hundreds of work items per week arriving through six different channels — email, Slack, voicemail, agency portals, VP direct assignments, and automated system alerts — with no unified system to capture, route, or track them.
+
+The result: invisible work, missed SLAs, duplicated effort, reactive escalations, and no real-time operational visibility for leadership. Kitty cannot confirm a ticket was created. Robin cannot see the true health of all five pillars simultaneously. This document defines the architecture to fix that.
+
+The Solution: Universal Blueprint & Jira Workflow Architecture
+
+A standardized, automated workflow system that makes all Tax Ops work visible, routed, and tracked — regardless of how or where it arrives.
+
+Six Core Capabilities
+
+Zero Dark Work — Every item entering Tax Ops from any channel becomes a standardized Jira ticket within minutes
+
+Auto-Routing — Work type, client segment, and jurisdiction automatically assign the right team and DRI — no manual triage
+
+SLA Enforcement — Priority-based SLA clocks start automatically; aging alerts fire before deadlines are breached
+
+Leadership Visibility — Robin and Kitty have a real-time command center: queue health, aging items, P1 escalations, and workload distribution
+
+Cross-Ticket Tracing — Refiled work links back to original rejections; escalations trace to root cause; audit trails survive RCA reviews
+
+Automation-Ready — 18 native Jira automation rules defined; extends existing routing agent; AI expansion roadmapped for Phase 3
+
+How Every Work Item Flows
+
+Work Arrives (Email · Slack · Voicemail · Agency Notice · VP Assignment · System Alert)
+
+→ Auto-Classify (Routing agent sets Work Type, Pillar, Priority, Client Segment)
+
+→ Ticket Created (Standard fields set, SLA clock starts, DRI assigned)
+
+→ DRI Notified (Slack alert with ticket link and SLA deadline)
+
+→ Worked & Closed (SLA tracked · Leadership visible throughout)
+
+Builds on existing infrastructure: The current routing agent (email + voicemail) is the foundation. Phase 2 extends it to set Jira fields automatically. New intake channels (Slack, agency notices, VP quick-create) layer on top with minimal additional build.
+
+What Leadership Gets
+
+Kitty — VP, Product Operations
+
+Capability
+	Description
+
+ 
+
+Quick-Create Form
+	Submit work from Slack or a bookmarked URL. Required fields pre-filled. No Jira expertise needed.
+
+Instant Confirmation
+	Bot reply confirms ticket created, shows ticket ID and assigned DRI within seconds.
+
+Status Tracking
+	Real-time Jira filter or Slack summary showing status of all Kitty-assigned tickets at any time.
+
+Escalation Alerts
+	Automatic Slack notification when any P1 ticket ages past 4 hours or is escalated by a DRI.
+
+Weekly Digest
+	Auto-generated summary of what resolved, what is aging, and what needs VP attention.
+
+Robin Islam — Director, Tax Operations
+
+Capability
+	Description
+
+ 
+
+Full Pillar Visibility
+	Cross-pillar dashboard: queue depth, SLA health, blockers, and risk status across all 5 pillars simultaneously.
+
+Proactive Risk Alerts
+	Operational Risk Status flags surface At Risk and Critical Risk tickets before they become escalations.
+
+Dependency View
+	See which tickets are blocked by other tickets, TPA delays, or ACH windows across all pillars.
+
+Capacity Planning Data
+	Workload distribution by DRI, pillar volume trends, and SLA compliance rates to inform staffing decisions.
+
+RCA Tracing
+	Issue link taxonomy lets Robin trace refiled work back to root cause and identify repeat failure patterns.
+
+Key Architectural Components
+
+Component
+	What It Does
+	Why It Matters
+
+ 
+
+4-Level Ticket Hierarchy (Epic → Story → Task → Subtask)
+	Precise Tax Ops definitions for each level
+	Prevents overuse of Epics (buries reporting) and orphaned Tasks (invisible work)
+
+3-Step Routing Engine (Work Type → Pillar → Jurisdiction)
+	Auto-assigns the correct team and DRI from intake data
+	Zero manual triage; unclassifiable items surface to Robin within 4 hours
+
+Client Segment Modifier (Enterprise auto-upgrades priority 1 tier)
+	Enterprise clients get priority upgrade + escalation labels at ticket creation
+	High-value clients never sit in the same queue as standard work
+
+Three-Deadline Framework (Regulatory · Operational · SLA)
+	Distinguishes statutory deadlines from internal cutoffs from SLA targets
+	Prevents conflating hard agency deadlines with internal scheduling targets
+
+Operational Readiness Field (independent of workflow status)
+	Tracks whether preconditions for the next action are met, separate from workflow position
+	A ticket can be "In Progress" but "Not Ready to File" — now explicit, not hidden
+
+11-Category Blocker Taxonomy (TPA / Agency / ACH / Client / etc.)
+	Precise blocker classification replacing vague "Blocked" status
+	Enables systemic analysis: Is TPA Pending our biggest bottleneck this quarter?
+
+Cross-Project Link Taxonomy (10 defined relationship types)
+	Universal language for ticket relationships (refile of, corrects, caused by, escalates, etc.)
+	Makes RCA chains, repeat issue analysis, and penalty attribution fully auditable
+
+18 Automation Rules (Jira-native + agent-driven)
+	Auto-assign, SLA alerts, escalation triggers, status rollups, digest generation
+	Escalations happen proactively, not reactively; manual overhead minimized
+
+Implementation Roadmap
+
+Phase 1 · Weeks 1–4: Foundation
+
+Configure Jira project + full field schema
+
+Define ticket hierarchy + routing rules
+
+Build jurisdiction-to-DRI mapping table
+
+Set up all 18 SLA automation rules
+
+VP quick-create form + Slack integration
+
+Leadership dashboard filters in Jira
+
+Prerequisite: Jurisdiction-to-DRI table from pillar leads
+
+Phase 2 · Weeks 5–10: Automation
+
+Extend routing agent to set Jira fields automatically
+
+Slack-to-Jira intake integration (emoji trigger)
+
+Agency notices@ inbox auto-routing
+
+Webhook integration for system-generated tickets
+
+Automated SLA digest for Robin + Kitty
+
+Cross-ticket relationship linking enforcement
+
+Prerequisite: Phase 1 stable; agent extension scoped with Tony Henriquez
+
+Phase 3 · Weeks 11+: AI Expansion
+
+Predictive SLA risk scoring on historical data
+
+Auto-draft responses to agency notices
+
+Story Points estimation from historical tickets
+
+Anomaly detection: volume spikes by jurisdiction
+
+Automated RCA: link repeated failures by agency
+
+Real-time workload rebalancing suggestions
+
+Prerequisite: 90+ days of clean Phase 1/2 data
+
+7 Decisions Needed Before Build Begins
+
+#
+	Decision
+	Required From
+	Impact if Delayed
+
+ 
+
+1
+	Who owns the jurisdiction-to-DRI mapping table? Pillar leads self-maintain vs. Rana centralizes in Jira config
+	Robin + David/Hasmukh
+	All Filings tickets land in Unassigned Queue until resolved
+
+2
+	Are the proposed SLA defaults correct? P1=4hr, P2=1-day, P3=3-day, P4=5-day (Enterprise upgrades 1 tier)
+	Robin + all pillar leads
+	Automation fires incorrect escalation alerts from day 1
+
+3
+	How does Kitty submit work? Direct Jira role vs. Slack form bot vs. Robin creates on her behalf
+	Kitty / Robin
+	VP quick-create form cannot be scoped without this decision
+
+4
+	Does Audits need a custom status workflow? Standard + milestone field vs. custom (Notice Received → IDR → Submitted → Resolved)
+	Josh / David
+	Audits pillar uses wrong workflow in Phase 1
+
+5
+	Is Jira or Salesforce the system of record for Rippling Direct and E2E PEO?
+	Robin + Arnold + Ryan
+	Two-system duplication; no single source of truth
+
+6
+	Extend the existing routing agent or build a dedicated intake agent?
+	Rana / Tony Henriquez
+	Phase 2 scope and timeline depend on this answer
+
+7
+	Story Points: mandatory from day 1 or optional for Phase 1?
+	Robin
+	Capacity planning data accuracy and completeness in Phase 1
+
+How We'll Know It's Working
+
+Operational Metrics
+
+Metric
+	Target
+
+ 
+
+% of work captured in Jira vs. email/Slack only
+	90%+ by Day 30
+
+SLA compliance rate (resolved within SLA bucket)
+	85%+ by Day 60
+
+Unassigned queue cleared within SLA
+	100% within 4 hrs
+
+P1 escalation response time
+	≤ 4 business hours
+
+Duplicate ticket rate (same issue, multiple tickets)
+	< 5% by Day 60
+
+Leadership Visibility Metrics
+
+Metric
+	Target
+
+ 
+
+Kitty can confirm ticket creation in < 2 min
+	Day 1, Phase 1
+
+Robin has real-time cross-pillar dashboard
+	Day 1, Phase 1
+
+Zero escalations without prior Jira ticket
+	Day 30
+
+Weekly digest auto-generated (no manual prep)
+	Day 14, Phase 2
+
+RCA tracing available for any repeat issue
+	Day 60
+
+━━━━━━━━━━━━━━━━━━━
+
+
+=== Tab: BP & Jira WF Full Specifications ===
+
+━━━━━━━━━━━━━━━━━━━
+
+TAB 2 — FULL OPERATIONAL SPECIFICATION (V4)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+North Star: Every piece of work that enters Tax Operations — from a Slack message, agency email, voicemail, or VP assignment — must result in a standardized Jira ticket, routed to the right person, tracked against an SLA, and visible to leadership in a central command center. This document defines the architecture to get there.
+
+⚠️ Out of Scope — What This Framework Does NOT Replace: This system is for intake, coordination, governance, escalation, and operational visibility only. It does not replace and must not be confused with: Filings execution systems · ACH/payment orchestration · Filing batch execution · Agency submission tooling · Payroll processing systems · Salesforce client management · Filing Factory execution logic · Jira or any tax calculation engine. Those systems execute work. This framework tracks and governs it. Protecting this boundary is critical — expanding scope beyond intake/coordination will cause the system to collapse under its own weight.
+
+Contents
+
+Universal Ticket Hierarchy
+
+Work Intake Channels
+
+Routing Logic & Assignment Rules03B. Cross-Project Relationship Standards ✦new
+
+Universal Jira Field Schema
+
+Workflow States, Readiness & Blockers ✦updated
+
+SLA & Deadline Framework ✦updated
+
+Team-Specific Workflow Variants
+
+Automation Rules
+
+Escalation Framework
+
+Scenario Lifecycle Flows
+
+Leadership Visibility & Command Center
+
+Scalability & AI-Driven AutomationNEW. Operational Readiness Framework ✦newNEW. Dependency Modeling ✦new⚑ Open Decisions for Robin & Kitty
+
+Section 01: Universal Ticket Hierarchy
+
+A consistent hierarchy is the foundation of all visibility, SLA tracking, and routing. Every piece of work must live at the correct level — Epic overuse buries reporting; Task overuse hides structure. Use these definitions universally across all pillars.
+
+Epic
+
+A regulatory season, program, or sustained operational initiative. Spans weeks or months. Has a defined start/end or recurring cadence. Contains multiple related work packages. Used for leadership rollup and headcount justification.
+
+When to create: Recurring tax season · Multi-state program · Process improvement initiative · Agency audit engagement
+
+Tax Ops examples: Q3 2026 Filings Season · 2025 W-2/W-2C Processing · Puerto Rico Tax Reform Implementation · Annual SUI Rate Refresh · NWPEO Notice Resolution Program
+
+Story
+
+A discrete deliverable or outcome within an Epic. A complete unit of work with a clear done state. Owned by one DRI. Typically completable within 1–5 business days. Crosses a single employer, state, or work type boundary.
+
+When to create: Single employer filing · One agency notice response · One amendment request · Client escalation resolution
+
+Tax Ops examples: File Puerto Rico W-2Cs for Employer X · Respond to Ohio BWC Audit Notice #2024-001 · Process rejected SUI check for Client Y · Refile Q2 OH Withholding for Employer Z
+
+Task
+
+An individual action required to complete a Story. A single-person, single-day (or shorter) unit of work. Has clear input and output. Can be validated. Represents one distinct action in the workflow sequence.
+
+When to create: Pull and validate employer data · Upload file to agency portal · Confirm receipt/confirmation number · Draft client communication
+
+Tax Ops examples: Pull W-2C data from source system · Validate Ohio withholding calculation · Submit filing to agency portal · Log confirmation number
+
+Subtask
+
+A granular step within a Task — used for collaboration or phased work. Use sparingly. Only needed when a Task has distinct sub-phases or requires a second person (e.g., a QA reviewer). Do not create subtasks for single-person sequential steps — those are just comments/work log entries.
+
+When to create: QA reviewer validation step · Second approver sign-off · Parallel work on the same Task by two ICs
+
+Tax Ops examples: IC Self-QA: Validate calculation · Manager QA: Approve submission · Upload confirmation copy to drive
+
+Hierarchy Decision Guide
+
+Question to ask
+	If YES → Level
+	If NO → consider
+
+ 
+
+Does this span multiple work packages across weeks?
+	Epic
+	Probably a Story or below
+
+Is this a complete deliverable for one employer/client/state?
+	Story
+	Probably a Task inside an existing Story
+
+Is this a single action with a clear input/output (sub 1 day)?
+	Task
+	Could be a Subtask or a work log comment
+
+Does this need a second person (QA/approver) or run in parallel?
+	Subtask
+	Just a sequential step — use work log / checklist
+
+Hierarchy Rule: Ad hoc requests from Slack, email, voicemail, or leadership that are standalone work items (no parent Epic yet) should be created as Stories first, then linked to the appropriate Epic once one exists. Never leave an orphaned Task with no parent Story — this is the primary cause of invisible work.
+
+Section 02: Work Intake Channels
+
+All incoming work must funnel into Jira regardless of source. The goal is zero dark work — nothing that lives only in someone's inbox or Slack DMs. The existing routing agent handles email and voicemail; the remaining channels require lightweight integrations or defined manual steps.
+
+Channel
+	Description
+	Automation Level
+
+ 
+
+Email
+	Agency notices, client escalations, internal requests via email. Already handled by the existing routing agent.
+	✓ Auto — Existing Agent
+
+Voicemail
+	Transcribed by existing agent, classified by work type, and routed to appropriate pillar queue.
+	✓ Auto — Existing Agent
+
+Slack
+	Ad hoc requests in #tax-ops channels. Use a Jira-Slack integration so any message can be converted to a ticket with one click (emoji reaction or slash command).
+	⚡ Semi-Auto — Jira/Slack Integration
+
+Agency Notices
+	Paper or portal notices received by the filings team. Manual triage step required; recommend a dedicated email inbox (notices@) that auto-routes via the existing agent.
+	⚡ Semi-Auto — via notices@ inbox
+
+Leadership / VP Requests
+	Kitty or Robin assigns work directly. Should use a standardized Jira quick-create form (pinned in Slack or a bookmarked URL) so the ticket is created with all required fields pre-populated.
+	⚡ Semi-Auto — Quick-Create Template
+
+System-Generated
+	Jira alerts, Rippling platform errors, payroll processing failures. Webhook integration creates Jira tickets automatically with full context payload.
+	✓ Auto — Webhook
+
+Intake → Ticket Lifecycle (All Channels)
+
+Work Arrives (any channel) → Triage / Classification (agent or human) → Ticket Created (required fields set) → Auto-Routed (Assignee + Pillar) → SLA Clock Starts (based on Priority) → Assignee Notified (Slack + Jira)
+
+Expanding on the Existing Agent: The current agent classifies emails and voicemails. Phase 2 of this architecture extends the agent to also set Jira fields (Work Type, Pillar, Jurisdiction, Source Channel, suggested Assignee) based on classification before creating the ticket. The human does not need to re-enter data that the agent already extracted.
+
+Slack → Jira: Recommended Flow
+
+Step
+	Action
+	Who
+
+ 
+
+1
+	Team member posts request in #tax-ops-requests or DMs a bot
+	Requester
+
+2
+	React with :ticket: emoji OR type /create-ticket — Jira bot prompts for: Work Type, Pillar, Priority, Due Date
+	IC or Ops Lead
+
+3
+	Jira story is auto-created with Source Channel = Slack, linked back to the Slack thread
+	Automation
+
+4
+	Routing rules assign the ticket to correct DRI; DRI gets Slack notification with ticket link
+	Automation
+
+5
+	Slack thread gets a bot reply with the Jira ticket URL so requestor can track
+	Automation
+
+Section 03: Routing Logic & Assignment Rules
+
+Routing is a two-step decision: first assign to a Pillar, then assign to a DRI within that pillar. The routing agent applies these rules at ticket creation. Unclassifiable tickets land in an Unassigned Queue that Robin or the relevant pillar lead reviews daily.
+
+Step 1: Work Type → Pillar Assignment
+
+Work Type
+	Pillar
+	Manager DRI
+	Notes
+
+ 
+
+Federal/State Filings, Withholding Returns, SUI Filings, Quarterly/Annual Returns
+	Filings & Payments
+	David / Hasmukh / Josh
+	Heaviest routing complexity; jurisdiction-based sub-routing required
+
+W-2C, W-2, 941-X, Amended Returns, Corrected Filings
+	Amendments
+	David / Hasmukh
+	Often triggered by rejected filings or agency notices
+
+Agency Audit Requests, IDR Responses, Audit Notices, Penalty Disputes
+	Audits
+	Josh / David
+	Longest SLA; requires legal/compliance loop
+
+Rejected Returns, Reprocessed Submissions, EFTPS Refiles
+	Refiles
+	David / Hasmukh
+	Sub-type of Filings; link back to original rejected ticket
+
+State New Hire Registration, New Hire Reporting, Multi-State Setup
+	New Hire Reporting
+	Enablement (Sailendra)
+	High volume, automation opportunity
+
+Agency Notices (NWPEO clients), Client Tax Inquiries, SUI Rate Notices
+	End-to-End PEO
+	Ryan
+	NWPEO brand; may link to Salesforce case
+
+Agency Notices (Rippling Direct clients), Direct Client Escalations
+	Rippling Direct
+	Arnold
+	More Salesforce-driven; less operational complexity
+
+Escalations from clients or agencies requiring cross-pillar coordination
+	Escalations
+	Vijay Kumar / Rashmita Topakulu
+	Reports to Robin; may spawn child tickets in other pillars
+
+System configuration, process design, tooling, Jira admin, internal ops
+	Systems Lead
+	Rana Annabi
+	Reports to Tony Henriquez; catch-all for infrastructure work
+
+Step 1b: Client Segment → Priority Upgrade Rules
+
+Client Segment is the second routing dimension applied after Pillar assignment. Enterprise clients automatically receive a priority upgrade and trigger additional escalation labels at ticket creation.
+
+Client Segment
+	Priority Modifier
+	Auto-Labels Applied
+	Notification
+
+ 
+
+Enterprise
+	Upgrade base priority by 1 tier (P3→P2, P2→P1). P1 stays P1.
+	enterprise-client · agency-deadline (if applicable) · client-visible
+	Pillar Manager notified at creation; Robin notified if P1 after upgrade
+
+Mid-Market
+	No automatic upgrade; flag only if SLA at-risk
+	mid-market
+	Standard routing; pillar lead notified at SLA risk
+
+SMB / Startup
+	No modifier
+	None auto-applied
+	Standard routing
+
+Internal
+	No SLA upgrade; P4 default unless flagged
+	internal
+	DRI only
+
+Enterprise Escalation Rule: Any Enterprise ticket that enters Blocked status or ages past 50% of its SLA Bucket without a status update automatically adds the escalated label and notifies the Pillar Manager via Slack — no manual escalation needed.
+
+Step 2: Jurisdiction/State → DRI Assignment (Filings & Payments)
+
+Within the Filings pillar, the routing agent uses a jurisdiction-to-assignee mapping table. This table must be maintained in a Jira configuration file (or a Google Sheet connected to the agent) and updated when staffing changes.
+
+State / Jurisdiction
+	Work Type
+	Primary DRI
+	Backup DRI
+
+ 
+
+Puerto Rico
+	W-2C, Filings, Amendments
+	Carolina
+	Hasmukh
+
+Ohio
+	Withholding, SUI, BWC
+	Lakshmi
+	David
+
+[State mapping continued — populate from current staffing matrix]
+	—
+	—
+	—
+
+Action Required: The full jurisdiction-to-DRI mapping table must be built and maintained by the pillar leads (David/Hasmukh/Josh). This is the most critical input the routing agent needs to operate correctly. Without it, all Filings tickets land in the Unassigned Queue.
+
+Unassigned Queue Rules
+
+Condition
+	Queue Action
+	SLA to clear
+
+ 
+
+Work Type cannot be determined from intake data
+	Routes to Unassigned → Robin notified
+	4 business hours
+
+Jurisdiction not in mapping table
+	Routes to Pillar lead (David/Hasmukh)
+	4 business hours
+
+Leadership request without sufficient context
+	Jira bot requests clarification in Slack
+	Same business day
+
+Section 03B: Cross-Project Relationship Standards ✦new
+
+Why this matters: Without a shared relationship taxonomy, cross-ticket reporting is impossible. RCA chains break. Repeat issue analysis fails. Penalty attribution has no audit trail. This section defines the complete set of valid issue link types — every ticket relationship must use one of these, and no others.
+
+Universal Issue Link Taxonomy
+
+Relationship (Jira Link Type)
+	Meaning
+	When to Use
+
+ 
+
+refile of
+	This ticket is a new submission for work that was previously rejected or failed
+	When creating a refile after a rejection; link new ticket to the original rejected ticket
+
+corrects
+	This ticket fixes an error made in the linked ticket
+	Amendments, 941-X, W-2C corrections; link to the filing that contained the original error
+
+caused by
+	The problem described in this ticket was caused by the linked ticket
+	Root-cause attribution; helps identify systemic failure patterns
+
+blocks
+	This ticket cannot be progressed until the linked ticket is resolved
+	Dependency modeling; upstream dependency that must complete first
+
+escalates
+	This ticket represents an escalation of the issue tracked in the linked ticket
+	When a DRI-level issue is escalated to a Manager, Director, or VP level ticket
+
+related notice
+	This ticket and the linked ticket both involve the same agency notice or filing event
+	Multi-ticket agency notice response; group all related work
+
+payment for
+	This ticket represents the ACH/payment action for the linked filing ticket
+	Separate the filing action from the payment action while maintaining traceability
+
+spawned from
+	This ticket was created as a result of work done in the linked ticket (unexpected scope discovery)
+	New work discovered mid-execution; keeps the parent scope clean
+
+duplicate of
+	This ticket is a duplicate of the linked ticket
+	Triage; close the duplicate, do not delete — it preserves the audit trail
+
+supersedes
+	This ticket replaces the linked ticket as the current work item
+	Version replacement; old ticket linked for history, new ticket is the active DRI assignment
+
+Mandatory Linking Rules
+
+Every refile ticket must carry a refile of link to the original at creation
+
+Every amendment/correction ticket must carry a corrects link to the originating filing
+
+Every escalation ticket must carry an escalates link to the triggering ticket
+
+Payment tickets for filed returns must carry a payment for link to the filing ticket
+
+No ticket may be closed as duplicate without a duplicate of link — deleting duplicates breaks audit chains
+
+Relationship Governance
+
+Jira automation will flag any ticket closed without a required relationship link (refile, correction, escalation) and notify the Pillar Manager to remediate within one business day.
+
+Section 04: Universal Jira Field Schema
+
+Every ticket in every pillar uses this standard field set. Required fields must be populated at creation — the routing agent pre-fills as many as possible.
+
+Core Fields
+
+Field
+	Type
+	Required?
+	Set by
+	Notes
+
+ 
+
+Issue Type
+	Select
+	Required
+	Agent/Human
+	Epic / Story / Task / Subtask
+
+Summary / Title
+	Text
+	Required
+	Agent/Human
+	Format: [WorkType] · [Employer/Client] · [State] · [Action]
+
+Work Stream
+	Select
+	Required
+	Agent (auto)
+	Filings / Amendments / Audits / Refiles / New Hire / Agency Notice / Escalation / Internal Ops
+
+Pillar
+	Select
+	Required
+	Agent (auto)
+	Filings & Payments / Amendments / Audits / New Hire Reporting / E2E PEO / Rippling Direct / Systems Lead
+
+Assignee / DRI
+	User
+	Required
+	Agent (auto)
+	Routing agent assigns; manual override allowed
+
+Priority
+	Select
+	Required
+	Agent (auto)
+	P1 (Critical) / P2 (High) / P3 (Medium) / P4 (Low)
+
+Client Segment
+	Select
+	Required
+	Agent (auto)
+	Enterprise / Mid-Market / SMB / Internal
+
+SLA Bucket
+	Select
+	Auto-calc
+	System
+	Auto-calculated from Priority × Client Segment
+
+Queue Status
+	Select
+	Required
+	Manager
+	Active / Aging / Escalated / Parked / Unassigned
+
+Operational Readiness
+	Select
+	Required
+	DRI/Manager
+	Not Ready / TPA Pending / Client Action Complete / Ready to File / Ready for Refile / Compliance Approved / Engineering Validated / Ready for Payment
+
+Operational Risk Status
+	Select
+	Required
+	DRI/Manager
+	On Track / At Risk / Critical Risk / Dependency Risk / Penalty Risk
+
+Jurisdiction / State
+	Text
+	Required
+	Agent (auto)
+	Full state name or "Federal"
+
+Employer / Client ID
+	Text
+	Required
+	Agent/Human
+	Rippling employer ID or client name
+
+Regulatory Deadline
+	Date
+	Required (if applicable)
+	Agent/Human
+	Statutory agency deadline — immovable
+
+Operational Deadline
+	Date
+	Required (if applicable)
+	DRI/Manager
+	Internal cutoff (ACH window, mailing date, batch)
+
+Due Date
+	Date
+	Auto-calc
+	System
+	SLA Bucket + ticket creation date
+
+Source Channel
+	Select
+	Auto
+	Agent/System
+	Email / Voicemail / Slack / Agency Notice / Leadership / System-Generated
+
+Parent Goal / Initiative
+	Link
+	Optional
+	Manager
+	Link to parent Epic or Initiative
+
+Filing Frequency
+	Select
+	Optional
+	Agent/Human
+	One-time / Monthly / Quarterly / Annual
+
+Labels
+	Multi-select
+	Optional
+	Agent/System
+	Enterprise flags, escalation tags, agency-specific labels
+
+Story Points
+	Number
+	Deferred to Phase 3+
+	Manager
+	Optional; do not require in Phase 1 or Phase 2
+
+Summary Title Standard: [Work Type] · [Employer/Client Name] · [State/Jurisdiction] · [Specific Action]
+
+Example: W-2C Amendment · Employer ABC Corp · Puerto Rico · Refile Q3 2025
+
+Section 05: Workflow States, Readiness & Blockers
+
+Standard Workflow States
+
+Backlog → To Do → In Progress → Blocked → Pending Review → Done · Closed · Cancelled
+
+Status Definitions
+
+Status
+	Meaning
+	Who Sets It
+	Transition Rules
+
+ 
+
+Backlog
+	Created but not yet scheduled for active work
+	Agent/System
+	Any ticket not yet assigned to a sprint or work period
+
+To Do
+	Scheduled, assigned to DRI, ready to be started
+	Pillar Manager
+	DRI confirmed; all required fields populated
+
+In Progress
+	DRI is actively working this ticket
+	DRI
+	Transition from To Do; SLA clock is running
+
+Blocked
+	Cannot proceed without external resolution
+	DRI
+	Must set Blocker Type field; manager notified automatically
+
+Pending Review
+	Work is complete pending QA, manager sign-off, or compliance approval
+	DRI
+	DRI marks complete; reviewer assigned automatically
+
+Done
+	All work and validations complete; ready to close
+	Reviewer/Manager
+	All gate criteria met
+
+Closed
+	Confirmed complete; archived
+	System (auto)
+	Auto-closes Done tickets after 5 business days
+
+Cancelled
+	Work will not be completed; documented reason required
+	Manager
+	Cancellation reason field required
+
+Transition Gate Criteria
+
+To Do → In Progress (Gate: Pre-Work Validation)
+
+Assignee confirmed
+
+Jurisdiction verified
+
+Regulatory Deadline confirmed (if applicable)
+
+Client Segment set
+
+SLA Bucket confirmed
+
+In Progress → Blocked (Gate: Blocker Documentation)
+
+Blocker Type set (from taxonomy below)
+
+Blocker description entered in comments
+
+Estimated resolution date set
+
+Manager/escalation contact notified
+
+In Progress / Blocked → Pending Review (Gate: Completion Validation)
+
+Operational Readiness = Ready to File / Ready for Refile / Ready for Payment / Compliance Approved (as applicable)
+
+Confirmation number logged (if filing)
+
+All subtasks resolved
+
+Client communication sent (if required)
+
+Pending Review → Done (Gate: Review Sign-Off)
+
+Reviewer confirmed accuracy of work
+
+All linked child tickets resolved or linked
+
+Required Jira relationship links added (refile of, corrects, payment for)
+
+No open comments requiring resolution
+
+Expanded Blocker Type Taxonomy (11 Categories)
+
+Blocker Type
+	Definition
+	Who Owns Resolution
+
+ 
+
+TPA Pending
+	Third-party administrator action required before work can proceed
+	Vendor/TPA contact + DRI monitors
+
+Agency Portal Issue
+	State or federal agency portal is down, inaccessible, or rejecting submission
+	DRI documents; escalate to Pillar Manager if > 1 day
+
+ACH Window Dependency
+	Payment cannot be initiated until the next ACH processing window opens
+	Filings & Payments team; date-driven resolution
+
+Mailing Dependency
+	Physical mailing required; blocked until mail window or postal confirmation
+	DRI tracks; system date-resolved
+
+Compliance Review
+	Legal, compliance, or risk team sign-off required before proceeding
+	Compliance team; escalate if > SLA by 50%
+
+Payroll Correction Pending
+	Underlying payroll data contains an error that must be corrected before this work can proceed
+	Payroll team owns correction; DRI links ticket
+
+Client Documentation Pending
+	Client must provide documentation, authorization, or information before work can continue
+	Client Success or DRI; client-facing deadline set
+
+Vendor Blocked
+	External vendor (filing service, agency integration) is not responding or has an open service issue
+	Vendor support ticket linked; escalated to Manager
+
+Credential Access Issue
+	Missing or expired credentials for agency portal, state system, or filing platform
+	IT/Systems Lead; P1 if blocking active filing
+
+Engineering Dependency
+	Internal engineering work (bug fix, feature, integration) must be completed before proceeding
+	Engineering ticket linked; Rana/Tony escalation path
+
+Internal Coordination
+	Waiting for response, review, or action from another internal team (not engineering)
+	DRI sets response deadline; Manager monitors
+
+Section 06: SLA & Deadline Framework
+
+SLA Priority Definitions
+
+Priority
+	Default SLA Bucket
+	Enterprise Modifier
+	Trigger
+
+ 
+
+P1 — Critical
+	4 business hours
+	— (already P1)
+	Statutory penalty risk · Active agency enforcement · Client-visible failure
+
+P2 — High
+	1 business day
+	P3 Enterprise → P2
+	Upcoming regulatory deadline ≤ 5 days · Escalated notice · Enterprise client item
+
+P3 — Medium
+	3 business days
+	P4 Enterprise → P3
+	Standard filing work · Agency notice with > 5 days to deadline
+
+P4 — Low
+	5 business days
+	No modifier
+	Internal ops · Non-urgent improvements · Background tasks
+
+SLA Clock Rules
+
+Event
+	Rule
+
+ 
+
+SLA clock starts
+	At ticket creation (not at DRI assignment)
+
+SLA clock pauses
+	When status = Blocked (with valid Blocker Type set)
+
+SLA clock resumes
+	When Blocked → In Progress transition occurs
+
+SLA breach warning fires
+	At 75% of SLA Bucket elapsed → Slack alert to DRI and Pillar Manager
+
+SLA breach
+	At 100% → Queue Status auto-set to Aging; Robin notified
+
+Enterprise ticket aging
+	At 50% of SLA Bucket → Pillar Manager auto-notified via Slack
+
+Three-Deadline Framework ✦new
+
+Every ticket can carry up to three distinct deadline fields. They are independent of each other and must not be conflated.
+
+1. Regulatory Deadline (Field: Regulatory Deadline)
+
+What it is: The statutory deadline set by the agency, tax authority, or law. This is the hard legal due date.
+
+Who sets it: Routing agent (from email/notice metadata) or DRI manually at ticket creation
+
+Behavior: Immovable. Changing this field requires manager approval and a comment explaining the change. If work is not completed by this date, penalty risk is automatic.
+
+Examples: IRS Form 941 quarterly due date · State SUI quarterly filing deadline · W-2C submission deadline per IRS Publication 15-A
+
+2. Operational Deadline (Field: Operational Deadline)
+
+What it is: An internal cutoff imposed by operational constraints — ACH processing windows, physical mailing schedules, batch submission cutoffs, or client communication windows.
+
+Who sets it: DRI or Pillar Manager at ticket creation or during planning
+
+Behavior: Earlier than or equal to Regulatory Deadline. The team must complete the work by this date to hit the Regulatory Deadline safely.
+
+Examples: ACH must initiate by 2pm for same-day settlement · W-2C batch must be submitted to processing by Friday noon for Monday mailing · State portal submission batch closes at 11:59pm on the 14th
+
+3. SLA Deadline / Due Date (Field: Due Date)
+
+What it is: The internal team target calculated automatically from Priority and Client Segment (the SLA Bucket). This is the team's self-imposed service level.
+
+Who sets it: Auto-calculated by Jira automation from Priority × Client Segment at ticket creation
+
+Behavior: May be earlier or later than the Operational Deadline. SLA breach warnings fire based on this date. Does not replace Regulatory or Operational Deadlines.
+
+Deadline Priority Order (in case of conflict): Regulatory Deadline ≥ Operational Deadline ≥ SLA Due Date. If Operational Deadline < SLA Due Date, Jira automation fires an alert: "Operational constraint is tighter than SLA — adjust priority or DRI assignment."
+
+Section 07: Team-Specific Workflow Variants
+
+Filings & Payments — Complex (Jurisdiction Matrix)
+
+Extended routing with state-specific DRI mapping
+
+Dual-deadline tracking: Regulatory filing date + ACH payment window
+
+Batch filing sub-workflow: group Stories under a quarterly Epic
+
+Confirmation number mandatory before Pending Review transition
+
+Amendments — Medium Complexity
+
+Every amendment Story must link to originating filing ticket via corrects relationship
+
+Two-step validation: IC self-QA + Manager approval before filing
+
+Error categorization required: Payroll Input Error / Portal Error / Data Migration Error / Client-Provided Incorrect Data
+
+Audits & Notices — Extended SLA
+
+Custom milestone tracking field for IDR stages
+
+Legal/Compliance review gate before any agency response is submitted
+
+90-day default SLA with milestone alerts at 30% / 60% / 90% elapsed
+
+All communications logged as Jira comments (not email-only)
+
+New Hire Reporting — High Volume, Lightweight
+
+Batch creation automation: group new hire tickets by state and week
+
+Auto-close for confirmed submissions with logged confirmation number
+
+Reduced required fields: Jurisdiction, State, Employer ID, Regulatory Deadline
+
+End-to-End PEO / Rippling Direct — Notice-Driven
+
+Salesforce Case ID linked to Jira ticket at creation (where applicable)
+
+Client-segment-driven auto-labeling at intake
+
+Agency notice sub-type field required: NWPEO vs. Rippling Direct
+
+Section 08: Automation Rules
+
+Category A: Intake & Creation Automation
+
+Rule 1 — Auto-Classify from Email
+
+Trigger: New email arrives in designated Tax Ops inbox
+
+Action: Routing agent extracts work type, employer, jurisdiction, priority → creates Jira Story with pre-filled fields
+
+Tag: Agent-driven
+
+Rule 2 — Auto-Classify from Voicemail
+
+Trigger: Voicemail transcription completed by existing agent
+
+Action: Agent classifies work type and urgency → creates Jira Story; DRI notified via Slack
+
+Tag: Agent-driven
+
+Rule 3 — Slack :ticket: Trigger
+
+Trigger: User reacts to Slack message with :ticket: emoji
+
+Action: Jira bot prompts for Work Type + Priority → creates Story linked to Slack thread; posts confirmation in thread
+
+Tag: Slack integration
+
+Rule 4 — Enterprise Auto-Label
+
+Trigger: Ticket created with Client Segment = Enterprise
+
+Action: Priority upgraded 1 tier; labels enterprise-client, client-visible applied; Pillar Manager notified via Slack
+
+Tag: Native Jira
+
+Rule 5 — System-Generated Ticket via Webhook
+
+Trigger: Platform error or system alert webhook fires
+
+Action: Jira Story created with full error payload; Source Channel = System-Generated; auto-assigned to Systems Lead queue
+
+Tag: Native Jira (webhook)
+
+Rule 6 — Duplicate Detection
+
+Trigger: New ticket created with matching Employer ID + Work Type + Jurisdiction within 7 days
+
+Action: Flag as potential duplicate → Pillar Manager notified for triage; ticket enters Backlog pending review
+
+Tag: Native Jira
+
+Category B: SLA & Deadline Automation
+
+Rule 7 — SLA Clock Start
+
+Trigger: Ticket transitions to In Progress
+
+Action: Due Date auto-calculated from Priority × Client Segment; SLA clock starts; confirmation posted in ticket
+
+Tag: Native Jira
+
+Rule 8 — SLA 75% Warning
+
+Trigger: Due Date is 75% elapsed and ticket is not in Done/Closed/Cancelled
+
+Action: Slack alert to DRI: "SLA alert: [Ticket ID] is at 75% of its SLA window. Current status: [status]."
+
+Tag: Native Jira
+
+Rule 9 — SLA Breach → Aging
+
+Trigger: Due Date passes; ticket not in Done/Closed/Cancelled
+
+Action: Queue Status auto-set to Aging; Robin notified via Slack; label sla-breached applied
+
+Tag: Native Jira
+
+Rule 10 — Regulatory Deadline Warning (5-day)
+
+Trigger: Regulatory Deadline is 5 calendar days away; ticket not Done
+
+Action: Slack alert to DRI + Pillar Manager: "Regulatory deadline in 5 days: [Ticket ID]"
+
+Tag: Native Jira
+
+Rule 11 — Regulatory Deadline Warning (1-day)
+
+Trigger: Regulatory Deadline is 1 calendar day away; ticket not Done
+
+Action: Slack alert to DRI + Pillar Manager + Robin; Priority upgraded to P1 if not already
+
+Tag: Native Jira
+
+Rule 12 — Enterprise SLA 50% Alert
+
+Trigger: Enterprise ticket at 50% of SLA Bucket with no status update in 24 hours
+
+Action: Pillar Manager notified via Slack; label escalated applied
+
+Tag: Native Jira
+
+Category C: Routing & Assignment Automation
+
+Rule 13 — Auto-Assign by Work Type + Jurisdiction
+
+Trigger: New Story created with Work Type and Jurisdiction set
+
+Action: Routing agent looks up jurisdiction-to-DRI table; assigns ticket; DRI notified
+
+Tag: Agent-driven
+
+Rule 14 — Unassigned Queue Alert
+
+Trigger: Ticket created with no Assignee and not in Backlog for > 2 hours
+
+Action: Queue Status = Unassigned; Robin notified via Slack; pillar lead notified
+
+Tag: Native Jira
+
+Category D: Workflow Transition Automation
+
+Rule 15 — Blocked Notification
+
+Trigger: Ticket transitions to Blocked
+
+Action: Pillar Manager notified; Blocker Type required (ticket cannot transition without it); SLA clock pauses
+
+Tag: Native Jira
+
+Rule 16 — Blocked Resolution
+
+Trigger: Ticket transitions from Blocked back to In Progress
+
+Action: SLA clock resumes; DRI notified; Blocker Type cleared from active blocker field; resolution logged in comment
+
+Tag: Native Jira
+
+Rule 17 — Completion Validation Gate
+
+Trigger: DRI attempts to transition ticket to Pending Review
+
+Action: Jira checks gate criteria (Operational Readiness field set, all Subtasks resolved, confirmation number logged if filing type). If criteria not met, transition blocked with error message listing missing fields.
+
+Tag: Native Jira
+
+Category E: Leadership Reporting Automation
+
+Rule 18 — Weekly Cross-Pillar Digest
+
+Trigger: Every Monday at 8am PT
+
+Action: Auto-generate Jira filter summary: tickets opened/closed by pillar, SLA compliance %, current Aging count, P1 tickets active — post to #tax-ops-leadership Slack channel
+
+Tag: Native Jira + Slack
+
+Section 09: Escalation Framework
+
+Escalation Levels
+
+Level 0 — DRI Self-Resolution
+
+Trigger: DRI identifies blocker or risk within SLA window
+
+Response: DRI sets Blocker Type, updates ticket, attempts resolution within SLA
+
+Outcome: Resolved by DRI; no escalation needed
+
+Level 1 — Pillar Manager
+
+Trigger: SLA at 75% + no progress · Enterprise ticket at 50% with no update · DRI requests escalation · Blocked for > 4 business hours without clear resolution path
+
+Response time: 4 business hours from trigger
+
+Action: Pillar Manager takes ownership, adjusts priority, reassigns or resolves blocker
+
+Notification: Pillar Manager via Slack (auto); ticket Queue Status → Escalated
+
+Level 2 — Robin Islam (Director, Tax Operations)
+
+Trigger: Level 1 escalation unresolved after 2 business hours · P1 ticket with no resolution in sight · Cross-pillar blocker affecting ≥ 2 pillars · Enterprise client at risk of penalty
+
+Response time: 2 business hours from trigger
+
+Action: Robin coordinates across pillar leads, escalates blockers to partner teams, reallocates resources
+
+Notification: Robin via Slack (auto) + Jira comment; Priority upgraded to P1
+
+Level 3 — Kitty (VP, Product Operations)
+
+Trigger: Level 2 unresolved by end of business day · Active regulatory penalty risk · Client-facing reputational risk · Leadership/client has been notified or involved
+
+Response time: Same business day
+
+Action: VP-level decision on resource allocation, client communication, or external engagement
+
+Notification: Kitty via Slack (manual by Robin) + executive summary comment on ticket
+
+Escalation Automation Triggers
+
+Condition
+	Auto-Action
+
+ 
+
+P1 ticket in Blocked status for > 4 hours
+	Auto-escalate to Level 1; Pillar Manager Slack notification
+
+Enterprise ticket at 50% SLA with no update
+	Auto-escalate to Level 1; label escalated applied
+
+P1 ticket unresolved at SLA breach
+	Auto-escalate to Level 2; Robin Slack notification; Priority audit
+
+Cross-pillar ticket blocked
+	Notify Robin + all affected Pillar Managers simultaneously
+
+Regulatory Deadline < 24 hours; ticket not Done
+	Auto-escalate to Level 2; Priority forced to P1
+
+Section 10: Scenario Lifecycle Flows
+
+Scenario 1: Puerto Rico W-2C Refile (NWPEO Client)
+
+Day 1, 9am — Agency email arrives: NWPEO client's Q3 2025 Puerto Rico W-2C filing rejected by CFIA due to incorrect Social Security wages field
+
+Day 1, 9:05am — Routing agent classifies: Work Type = W-2C Amendment, Jurisdiction = Puerto Rico, Pillar = Amendments, Client Segment = Enterprise, Priority = P3 → auto-upgraded to P2 (Enterprise modifier)
+
+Day 1, 9:06am — Jira Story TAX-1147 created; links: refile of TAX-1098 (original submission); auto-labeled: enterprise-client, agency-deadline, client-visible; Carolina assigned as DRI
+
+Day 1, 9:07am — Carolina receives Slack notification: "TAX-1147 assigned. P2 SLA = 1 business day. Regulatory deadline: [date]."
+
+Day 1, 10am — Carolina transitions ticket to In Progress; validates W-2C data against source payroll records; discovers source calculation error
+
+Day 1, 10:30am — Carolina sets Blocker Type = Payroll Correction Pending; creates blocks link to payroll correction ticket TAX-1148; SLA clock pauses
+
+Day 2, 8am — Payroll correction confirmed; TAX-1148 closed; automation detects blocks link resolved; SLA clock resumes on TAX-1147; Carolina notified
+
+Day 2, 11am — Carolina corrects W-2C, uploads to CFIA portal, logs confirmation number in ticket; sets Operational Readiness = Ready for Refile
+
+Day 2, 11:15am — Ticket transitions to Pending Review; Hasmukh notified for manager QA
+
+Day 2, 2pm — Hasmukh approves; ticket transitions to Done; client notified; SLA compliance = Met (1 day, within P2 Enterprise SLA)
+
+Scenario 2: Ohio BWC Audit Notice (Robin Escalation)
+
+Day 1, 2pm — Mail scan or agency portal: Ohio BWC issues audit notice for Q2 2024 SUI filings for Employer Y; 30-day response window
+
+Day 1, 2:30pm — DRI creates Story manually (notices@ inbox not yet set up); Work Type = Agency Audit; Jurisdiction = Ohio; Priority = P2; Regulatory Deadline = 30 days out; Operational Deadline = 21 days out (compliance review requires 7-day buffer)
+
+Day 1, 3pm — Robin reviews ticket in daily Jira dashboard; assigns to Josh (Audits lead)
+
+Day 7 — Josh requests IDR documents from client; creates subtask for client documentation request; Blocker Type = Client Documentation Pending
+
+Day 14 — Client fails to respond; SLA clock at 80%; Rule 8 fires → Slack alert to Josh + David. Queue Status auto-set to Aging
+
+Day 15 — Robin auto-notified (Rule 9); Robin escalates to client success team; client documentation received same day
+
+Day 21 — Compliance review completed; Operational Readiness = Compliance Approved
+
+Day 23 — Response submitted to Ohio BWC; confirmation number logged; ticket transitions to Done; 7 days ahead of Operational Deadline
+
+Scenario 3: Kitty VP Assignment — Urgent Multi-State SUI Issue
+
+8am Monday — Kitty receives a call: 3 enterprise clients have received SUI rate change notices in California, Texas, and Colorado; Q2 filings are at risk
+
+8:15am — Kitty opens VP Quick-Create form (bookmarked URL); selects Work Type = SUI Filings / Agency Notice, Priority = P1, Client Segment = Enterprise, adds 3 employer IDs; submits
+
+8:16am — 3 Jira Stories auto-created (TAX-1201, TAX-1202, TAX-1203); all P1; all labeled enterprise-client; routed to appropriate DRIs per jurisdiction table
+
+8:17am — Kitty receives Slack bot confirmation: "3 tickets created: TAX-1201 (CA), TAX-1202 (TX), TAX-1203 (CO). DRIs assigned. P1 SLA = 4 business hours."
+
+10am — Robin's daily digest shows 3 P1 tickets active; Robin monitors progress in cross-pillar dashboard
+
+12pm — TAX-1202 (TX) enters Blocked: Agency Portal Issue (Texas portal down); Rule 15 fires → Robin auto-notified; Kitty's escalation alert fires
+
+2pm — Texas portal restored; TAX-1202 unblocked; all 3 tickets resolved by end of day; SLA compliance = Met
+
+Scenario 4: High-Volume Batch — Quarterly Filings Season
+
+Week 1 of Quarter — Robin creates Q3 Filings Epic; all quarterly filing Stories linked beneath it
+
+Pillar leads bulk-create Stories for all active employers per jurisdiction; routing agent pre-fills required fields from last quarter's templates
+
+Daily standup view — Robin reviews Epic burndown: 142 Stories total, 23 In Progress, 12 Blocked, 4 Aging
+
+Blockers board — Robin filters by Blocker Type: 8 TPA Pending, 3 Client Documentation Pending, 1 Agency Portal Issue; routes blocker resolution to appropriate owners
+
+Week 3 — 18 tickets remain; Robin uses Dependency View to identify which Blocked tickets are blocking payment tickets downstream
+
+Week 4 — Last batch submitted; Epic marked Done; SLA compliance report auto-generated and posted to #tax-ops-leadership
+
+Section 11: Leadership Visibility & Command Center
+
+Robin's Daily Dashboard (Jira Filters + Slack Digest)
+
+View
+	What It Shows
+	How Accessed
+
+ 
+
+Cross-Pillar Queue Health
+	Ticket count by pillar, SLA status, Queue Status distribution
+	Jira saved filter: "All active tickets by pillar + SLA"
+
+Aging & At-Risk Board
+	All tickets with Queue Status = Aging or Operational Risk = At Risk/Critical
+	Jira board filtered by Queue Status + Risk Status
+
+Blocked by Blocker Type
+	Count of blocked tickets by Blocker Type category
+	Jira bar chart: Blocker Type field
+
+Dependency Chain View
+	Tickets with blocks relationships and their downstream dependents
+	Jira issue navigator: link type = blocks
+
+Enterprise Client Tracker
+	All Enterprise tickets, current status, SLA countdown
+	Jira filter: Client Segment = Enterprise AND Status != Done
+
+Weekly Digest
+	Summary of opened, resolved, SLA compliance %, aging count
+	Auto-generated Monday 8am → #tax-ops-leadership Slack
+
+Kitty's Leadership View
+
+View
+	What It Shows
+	How Accessed
+
+ 
+
+My Assignments
+	All tickets created by or assigned via Kitty's VP Quick-Create
+	Jira filter: Reporter = Kitty OR Label = vp-assigned
+
+P1 Active Escalations
+	All P1 tickets across all pillars, current status, DRI
+	Jira filter: Priority = P1 AND Status != Done/Closed
+
+Weekly Executive Digest
+	High-level: tickets opened, closed, SLA compliance, any active penalty risks
+	Auto-generated Monday 8am → Kitty's Slack DM
+
+Section 12: Scalability & AI-Driven Automation
+
+Current State (Phase 1)
+
+Manual data entry for jurisdiction-to-DRI mapping updates
+
+Agent classifies email and voicemail; human sets remaining fields
+
+18 native Jira automation rules cover SLA, routing, escalation, and digests
+
+Phase 2 Expansion
+
+Agent extended to set all Jira fields automatically from intake classification
+
+Slack-to-Jira integration eliminates manual ticket creation for ad hoc requests
+
+Agency notices@ inbox routes directly to routing agent
+
+Webhook integration for system-generated tickets
+
+Cross-ticket relationship linking validation (Rule enforcement)
+
+Phase 3 AI Roadmap
+
+Predictive SLA risk scoring: ML model trained on historical ticket data predicts which In Progress tickets are at risk of SLA breach 24–48 hours in advance
+
+Auto-draft agency notice responses: Agent drafts initial response language based on notice type and past resolution patterns; DRI reviews and approves
+
+Story Points estimation: Agent estimates effort from ticket metadata using historical velocity data
+
+Anomaly detection: Volume spike detection by jurisdiction (e.g., unusual increase in Ohio rejections signals system issue)
+
+Automated RCA chains: Agent auto-links new rejection tickets to historical tickets with same error type + employer + state → surfacing repeat failure patterns
+
+Workload rebalancing: Real-time suggestion engine: "DRI Lakshmi has 8 active tickets; DRI Carolina has 2 — recommend reassigning [ticket ID]"
+
+Important: Phase 3 AI features require a minimum of 90 days of clean, structured Phase 1/2 data. Do not build AI features before the data foundation is reliable. Manual read + data entry into the tracking system is required during this period to ensure data quality.
+
+Operational Readiness Framework ✦new
+
+Operational Readiness is a field independent of Jira workflow status. It answers a different question: not where is this ticket in the process, but are the preconditions for the next action actually met?
+
+A ticket can be In Progress (workflow status) but Not Ready to File (operational readiness). These are different states and must not be conflated.
+
+Operational Readiness Values
+
+Value
+	Meaning
+	Typical Workflow Status
+
+ 
+
+Not Ready
+	Default state; preconditions unknown or unmet
+	To Do / Backlog
+
+TPA Pending
+	Waiting for third-party administrator action before work can proceed
+	In Progress / Blocked
+
+Client Action Complete
+	Client has provided all required documentation or authorization
+	In Progress
+
+Ready to File
+	All data validated, portal access confirmed, regulatory deadline confirmed, DRI ready to submit
+	In Progress
+
+Ready for Refile
+	Original rejection documented, correction validated, new submission ready
+	In Progress
+
+Compliance Approved
+	Legal/compliance team has signed off on the work
+	In Progress / Pending Review
+
+Engineering Validated
+	Engineering team has confirmed technical fix is deployed and data is correct
+	In Progress
+
+Ready for Payment
+	Filing confirmed; ACH initiation authorized; window confirmed
+	In Progress
+
+Readiness vs. Status Matrix
+
+Workflow Status
+	Valid Operational Readiness Values
+
+ 
+
+Backlog / To Do
+	Not Ready only
+
+In Progress
+	Not Ready / TPA Pending / Client Action Complete / Ready to File / Ready for Refile / Engineering Validated / Ready for Payment
+
+Blocked
+	Not Ready / TPA Pending / Client Action Complete
+
+Pending Review
+	Compliance Approved / Ready to File / Ready for Refile
+
+Done
+	Compliance Approved / Ready for Payment / Ready to File (completed)
+
+Why This Matters
+
+Without the Operational Readiness field:
+
+A DRI can set a ticket to "In Progress" and leave it there indefinitely without communicating that work is actually gated on a client response or TPA action
+
+Robin has no way to distinguish "In Progress and on track" from "In Progress but actually waiting for something external"
+
+SLA clocks run against tickets that cannot be acted upon
+
+With the Operational Readiness field:
+
+Robin can filter for all tickets that are In Progress but Not Ready or TPA Pending — and take action on the blockers
+
+Kitty can see that her assigned work is "Ready to File" vs. "Waiting on client"
+
+Automation can trigger different alerts based on Readiness value (e.g., Client Action Pending for > 48 hours → client success team notified)
+
+Dependency Modeling ✦new
+
+The Seven Core Dependency Patterns in Tax Ops
+
+Pattern 1: Filing → Payment
+
+Story: File Q2 SUI Return (TAX-1050) blocks Story: Initiate Q2 SUI Payment (TAX-1051)
+
+Link: TAX-1050 blocks TAX-1051
+
+Automation: When TAX-1050 transitions to Done, TAX-1051 automatically transitions from Backlog → To Do and DRI is notified
+
+Pattern 2: Payroll Correction → Amendment
+
+Story: Correct Q3 Payroll Data for Employer X (TAX-1060) blocks Story: File W-2C Amendment for Employer X (TAX-1061)
+
+Link: TAX-1060 blocks TAX-1061
+
+Automation: TAX-1060 completion auto-moves TAX-1061 to To Do; DRI notified; amendment SLA clock starts
+
+Pattern 3: Rejection → Refile
+
+Story: File Q2 OH Withholding - Employer Z (TAX-1070) is rejected → spawns Story: Refile Q2 OH Withholding - Employer Z (TAX-1071)
+
+Link: TAX-1071 refile of TAX-1070
+
+Automation: Rejection detection creates TAX-1071 automatically; links it; original ticket Queue Status = Parked
+
+Pattern 4: Notice → Response → Payment
+
+Story: Receive OH BWC Audit Notice (TAX-1080) blocks Story: Submit IDR Response (TAX-1081) which blocks Story: Initiate Penalty Payment (TAX-1082)
+
+Links: TAX-1080 blocks TAX-1081; TAX-1081 blocks TAX-1082
+
+Automation: Chain dependency; each transition notifies downstream DRI
+
+Pattern 5: Multi-State Batch → Individual Filings
+
+Epic: Q3 Filings Season blocks all Stories within it (implicit hierarchy)
+
+Link: Epic-level dependency managed by Epic start date + Stories' DRI assignments
+
+Automation: Epic status changes cascade summary alerts to Robin
+
+Pattern 6: TPA Action → Filing
+
+Story: Wait for TPA to Process Q2 Data (TAX-1090) blocks Story: File Q2 SUI for Employer A (TAX-1091)
+
+Link: TAX-1090 blocks TAX-1091; Blocker Type = TPA Pending
+
+Automation: TAX-1090 closure triggers TAX-1091 transition + DRI Slack alert; SLA clock starts on TAX-1091
+
+Pattern 7: Engineering Fix → Refile
+
+Story: Fix EFTPS Integration Bug (TAX-1100, Engineering) blocks Story: Refile Batch of EFTPS Rejections (TAX-1101)
+
+Link: TAX-1100 blocks TAX-1101; TAX-1101 spawned from TAX-1099 (discovery ticket)
+
+Automation: Engineering ticket closure auto-creates action item for Rana + Pillar Manager to initiate refile batch
+
+Dependency Visibility Rules
+
+Condition
+	Action
+
+ 
+
+Ticket has active blocks links and is in Blocked status
+	Robin's Dependency View highlights the full downstream chain
+
+Blocked ticket ages past 50% of its SLA with no resolution in sight
+	Notify Pillar Manager + Robin: "Blocked ticket TAX-XXXX has [N] downstream dependents at risk"
+
+P1 upstream ticket is blocked and has downstream P1/P2 dependents
+	Notify Pillar Manager: "Blocked ticket TAX-XXXX is a dependency for [N] open tickets. Risk of cascading delays."
+
+⚑ Open Decisions for Robin & Kitty
+
+#
+	Decision
+	Options
+	Owner
+
+ 
+
+1
+	Jurisdiction-to-DRI mapping table — who owns and maintains it?
+	Pillar leads self-maintain in Google Sheet connected to agent vs. centralized in Jira config by Rana
+	Robin + David/Hasmukh
+
+2
+	SLA confirmation — do the proposed default SLAs match real operational expectations per pillar?
+	Accept proposed defaults vs. each pillar lead sets their own SLAs
+	Robin + all pillar leads
+
+3
+	VP Quick-Create form — should Kitty have a Jira project role, or submit via a Slack form bot?
+	Jira role (direct) vs. Slack form bot (no Jira login required) vs. Robin creates on Kitty's behalf
+	Kitty / Robin
+
+4
+	Audit workflow complexity — does Audits need a custom status workflow, or does the standard flow work?
+	Standard flow with milestone field vs. custom status workflow (Notice Received → IDR → Submitted → Resolved)
+	Josh / David
+
+5
+	Salesforce linkage — for Rippling Direct and E2E PEO, is Jira the system of record or Salesforce?
+	Jira primary, Salesforce secondary (case ID linked) vs. Salesforce primary, Jira only for internal ops
+	Robin + Arnold + Ryan
+
+6
+	Phase 2 agent extension — do we extend the existing routing agent or build a separate intake agent?
+	Extend existing (faster, less risk) vs. build new dedicated intake agent (more flexible)
+	Rana / Tony Henriquez
+
+7
+	Story Points adoption — is effort estimation mandatory or optional for Phase 1?
+	Required from day 1 (better data immediately) vs. optional initially, required in Phase 2
+	Robin
+
+Tax & Product Operations · Universal Blueprint & Jira Workflow Architecture · v4.0 · May 2026
+
+Author: Rana Annabi (Systems Lead) · For review: Robin Islam (Director, Tax Operations) & Kitty (VP, Product Operations)

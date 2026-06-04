@@ -1,5 +1,7 @@
 # Blueprint field mapping (BLUEPRINT)
 
+For the **Tax Ops Universal Blueprint v4** universal schema vs current Jira fields, see [`blueprint-v4-jira-alignment.md`](./blueprint-v4-jira-alignment.md).
+
 All pillar custom fields already exist in Jira. No new custom field definitions were created in this implementation (MCP cannot create fields; your site already had them).
 
 ## Semantic to Jira

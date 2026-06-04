@@ -1,0 +1,31 @@
+name: Jira API smoke
+
+# Verifies Jira Cloud REST credentials stored as repo Actions secrets.
+# Manual only — avoids exposing secrets to fork PRs and limits API churn.
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: jira-api-smoke-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Call Jira REST (/myself)
+        env:
+          JIRA_SITE: ${{ secrets.JIRA_SITE }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+        run: python scripts/jira_rest_smoke.py
