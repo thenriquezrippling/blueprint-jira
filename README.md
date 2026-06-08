@@ -12,6 +12,7 @@ Repo-local spec and helpers for the **BLUEPRINT** Jira project (`rippling.atlass
 | [docs/jira-field-inventory.json](docs/jira-field-inventory.json) | Issue types + field keys and select options for automation. |
 | [docs/field-mapping.md](docs/field-mapping.md) | Human-readable semantic → Jira mapping notes. |
 | [config/blueprint-field-map.json](config/blueprint-field-map.json) | Stable aliases used by the Python mapper. |
+| [docs/leadership-touchpoints.md](docs/leadership-touchpoints.md) | Who leadership is for (Robin/Kitty/managers), triggers, cadence, metrics. |
 | [docs/jira-api-token.md](docs/jira-api-token.md) | Jira API token + REST; GitHub Actions pattern for automation beyond MCP. |
 | [.github/workflows/jira-api-smoke.yml](.github/workflows/jira-api-smoke.yml) | `workflow_dispatch` — verifies `JIRA_*` Actions secrets. |
 | `src/blueprint_jira/` | `BlueprintMapper` builds `additional_fields` for MCP / REST. |

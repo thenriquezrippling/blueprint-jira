@@ -5,6 +5,7 @@
 - **Authoritative source (live):** [Tax Ops Universal Workflow Blueprint](https://docs.google.com/document/d/1keyqyWl2dotMuRJUN7Gv7YpvoGRTFEkt2QfYnJjh1JI/edit) — Google Doc id `1keyqyWl2dotMuRJUN7Gv7YpvoGRTFEkt2QfYnJjh1JI` (v4.0, May 2026).
 - **Full text in repo:** [`tax-ops-universal-blueprint-v4.txt`](./tax-ops-universal-blueprint-v4.txt) — last synced from that Google Doc via MCP `fetch` (re-run fetch and overwrite this file when the Doc changes).
 - **Jira gap analysis:** [`blueprint-v4-jira-alignment.md`](./blueprint-v4-jira-alignment.md) — maps v4 §04 field schema to project **BLUEPRINT** and flags missing fields.
+- **Leadership model:** [`leadership-touchpoints.md`](./leadership-touchpoints.md) — who engages when (visibility vs exceptions), tied to rollout stories.
 
 ### Executive summary (from v4)
 
@@ -71,6 +72,7 @@ Creating **new** custom field definitions in Jira requires Jira admin (UI or adm
 
 - Full v4 spec (plain text): [`tax-ops-universal-blueprint-v4.txt`](./tax-ops-universal-blueprint-v4.txt)
 - v4 ↔ Jira alignment: [`blueprint-v4-jira-alignment.md`](./blueprint-v4-jira-alignment.md)
+- Leadership touchpoints: [`leadership-touchpoints.md`](./leadership-touchpoints.md)
 - Field inventory: [`jira-field-inventory.json`](./jira-field-inventory.json) (generated).
 - Field map for tools: [`../config/blueprint-field-map.json`](../config/blueprint-field-map.json).
 - Mapping notes: [`field-mapping.md`](./field-mapping.md).
